@@ -4,56 +4,39 @@ A simple RESTful API endpoint was built that returns my profile information alon
 
 This task validates my ability to consume third-party APIs, format JSON responses, and return dynamic data.
 
-<!-- Steps to run the project locally (Windows):
+<!-- Commands to run locally (PowerShell): -->
 
-Install Node.js (recommended v18+).
-Open a terminal in the project root: c:\Users\DELL\Projects\Dynamic_Profile_Endpoint
-Install dependencies: -->
+npm install // Install dependencies
 
-npm install
+npm run json-server // Start only the JSON data server (serves db.json at http://localhost:4001)
 
-<!-- Install tools used by scripts (if not installed globally). From project root run: -->
+npm run dev
+# This runs: nodemon server/index.js
+# Or run in production mode:
+npm start
+# This runs: node server/index.js
 
-npm install --save-dev json-server concurrently
+<!-- Start both concurrently (recommended for dev): -->
 
-<!-- (Optional) Add a combined-dev script so both servers run together — modify package.json scripts to include dev:all. Example change: -->
+npm run start:all
+# This uses concurrently to run json-server and nodemon together
 
-// ...existing code...
-{  
-"scripts": {
-"start": "node server/index.js",
-"dev": "nodemon server/index.js","json-server": "json-server --watch data/db.json --port 4001","dev:all": "concurrently \"npm:dev\" \"npm:json-server\""
-}
-}
-// ...existing code...
+<!-- Verify the endpoint: -->
+JSON server user resource: http://localhost:4001/user/1
+Combined API endpoint: http://localhost:7000/api/me (default PORT set in code or via env — see below)
 
-<!-- Create a .env if you need to set PORT or other environment variables. Example .env: -->
+<!-- Dependencies (from package.json): -->
 
-PORT=7000
+npm install
+# or, to install production deps only:
+npm install --production
 
-<!-- Run servers:
-Start just the app (development): -->
+<!-- Environment variables: -->
 
-npm run dev
+JSON_SERVER_URL=http://localhost:4001/user/1
+PORT=4000 // Example .env (copy into the repo root)
 
-<!-- Start just json-server: -->
 
-npm run json-server
-
-<!-- Start both (after adding dev:all or using npx): -->
-
-npm run dev:all
-# or without installing concurrently:
-npx concurrently "npm:dev" "npm:json-server"
-
-<!-- Production start: -->
-
-npm start
-
-<!-- Notes:
-
-json-server must be installed (local devDependency or global) for npm run json-server to work.
-Because package.json has "type": "module", your server uses ESM imports (import/export). -->
 
 <!-- Dependencies used (from package.json) -->
 
@@ -84,8 +67,3 @@ Example .env content in this workspace:
 PORT=4000
 The server reads the port in index.js:
 If $PORT is set, the app listens on that port; otherwise it defaults to 7000.
-
-<!-- ** How to run it locally ** -->
-
-Development (auto-reload with nodemon):
-npm start dev:all
