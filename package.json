@@ -3,11 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "concurrently \"npm run json-server\" \"npm run start:app\"",
+    "start:app": "node server/index.js",
     "dev": "nodemon server/index.js",
     "start:all": "concurrently \"npm run json-server\" \"npm run dev\"",
-    "json-server": "json-server --watch data/db.json --port 4001"
+    "json-server": "json-server --watch data/db.json --port 4001",
+    "install:prod": "npm install --omit=dev"
   },
+  
   "keywords": [],
   "author": "oluwaseyi fortress",
   "license": "ISC",
@@ -16,10 +19,10 @@
     "axios": "^1.12.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "json-server": "^1.0.0-beta.3"
+    "json-server": "^1.0.0-beta.3",
+    "concurrently": "^9.2.1"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1",
     "dotenv": "^17.2.2",
     "nodemon": "^3.1.10"
   },

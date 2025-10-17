@@ -11,32 +11,48 @@ npm install // Install dependencies
 npm run json-server // Start only the JSON data server (serves db.json at http://localhost:4001)
 
 npm run dev
+
 # This runs: nodemon server/index.js
+
 # Or run in production mode:
+
 npm start
+
 # This runs: node server/index.js
 
 <!-- Start both concurrently (recommended for dev): -->
 
 npm run start:all
+
 # This uses concurrently to run json-server and nodemon together
 
 <!-- Verify the endpoint: -->
+
 JSON server user resource: http://localhost:4001/user/1
 Combined API endpoint: http://localhost:7000/api/me (default PORT set in code or via env — see below)
 
 <!-- Dependencies (from package.json): -->
 
 npm install
-# or, to install production deps only:
-npm install --production
+
+# or, to install production deps only (recommended):
+
+npm install --omit=dev
+
+# In CI (faster, reproducible):
+
+npm ci --omit=dev
+
+You can also run the repository's helper script:
+
+```powershell
+npm run install:prod
+```
 
 <!-- Environment variables: -->
 
 JSON_SERVER_URL=http://localhost:4001/user/1
 PORT=4000 // Example .env (copy into the repo root)
-
-
 
 <!-- Dependencies used (from package.json) -->
 
